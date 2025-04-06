@@ -1,9 +1,17 @@
 from flask import Flask, request, jsonify, redirect, render_template, session
 import gspread
+import os
+import json
 from googleapiclient.discovery import build
 from googleapiclient.http import MediaIoBaseUpload
 import io
 from oauth2client.service_account import ServiceAccountCredentials
+
+creds_json = os.environ['GOOGLE_CREDS']
+creds_dict = json.loads(creds_json)
+
+with open("creds.json", "w") as f:
+    json.dump(creds_dict, f)
 
 
 app = Flask(__name__)
