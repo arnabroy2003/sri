@@ -7,7 +7,7 @@ from googleapiclient.http import MediaIoBaseUpload
 import io
 from oauth2client.service_account import ServiceAccountCredentials
 
-creds_dict = json.loads(os.environ.get('GOOGLE_CREDS_JSON'))
+# creds_dict = json.loads(os.environ.get('GOOGLE_CREDS_JSON'))
 
 # with open("creds.json", "w") as f:
 #     json.dump(creds_dict, f)
@@ -17,14 +17,14 @@ app = Flask(__name__)
 app.secret_key = "arnab2003"
 # Google Sheets setup
 scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-creds = ServiceAccountCredentials.from_json_keyfile_name(creds_dict, scope)
+creds = ServiceAccountCredentials.from_json_keyfile_name("creds.json", scope)
 client = gspread.authorize(creds)
 sheet = client.open("Authontication").sheet1
 sheet2 = client.open("form submissions").sheet1
 sheet3 = client.open("ch form").sheet1
 
 DRIVE_FOLDER_ID = "1muBff1c__DmY5YRoKb-nd0YY0tab76de"
-SERVICE_ACCOUNT_FILE = creds_dict
+SERVICE_ACCOUNT_FILE = "creds.json"
 
 def get_drive_service():
     scope = ["https://www.googleapis.com/auth/drive.file"]
@@ -61,6 +61,9 @@ def upload_to_drive(file):
         print(f"Error uploading to Google Drive: {e}")
         return None
 
+@app.route("/")
+def first():
+    return redirect("/dashboard")
 
 @app.route("/dashboard")
 def home():
