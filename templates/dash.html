@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+  <style>
+    /* General Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.logo{
+  background-color: #2c3e50;
+  width: 100%;
+  padding: 20px;
+  padding-right: 0;
+  padding-bottom: 19px;
+}
+
+body.dark-mode .logo{
+  background-color: #222;
+  box-shadow: -2px 2px 4px rgba(124, 124, 124, 0.733);
+  padding-bottom: 18px;
+}
+
+#logo-img{
+  height: 75%;
+  width: 75%;
+  transform: translateX(10px);
+}
+
+.dashboard {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 250px;
+  background-color: #2c3e50;
+  color: #fff;
+  /* padding: 20px; */
+  padding: 0;
+  transition: transform 0.3s;
+}
+
+.menu-icon {
+  display: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.home{
+  margin-left: 10px;
+}
+
+.menu-item {
+  padding: 10px;
+  padding-left: 20px;
+  margin: 20px;
+  cursor: pointer;
+  background-color: #34495e;
+  border-radius: 5px;
+}
+
+.menu-item:hover {
+  background-color: #34495e;
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  background-color: #fff;
+  transition: background-color 0.3s;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: right;
+  gap: 0;
+  /* align-items: center; */
+  padding: 20px;
+  background-color: #fff;
+  /* border-bottom: 2px solid rgb(230, 230, 230); */
+}
+
+hr{
+  position: relative;
+  left: 5%;
+  border: none;
+  height: 1px;
+  width: 90%;
+}
+
+/* .header::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 2px; 
+  width: calc(100% - 4px); 
+  height: 2px;
+  background: rgb(230, 230, 230);
+} */
+.search-box {
+  height: 40px;
+  transform: translateX(20px);
+            display: flex;
+            align-items: center;
+            background: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.1);
+            border: 1px solid #ddd;
+        }
+        .search-box input {
+            border: none;
+            outline: none;
+            padding: 8px;
+            font-size: 13px;
+            color: #666;
+            width: 250px;
+            background: transparent;
+        }
+        .search-box img {
+            height: 18px;
+            width: 18px;
+            /* margin-right: 10px; */
+        }
+
+.header-icons {
+  display: flex;
+  align-items: center;
+}
+.header-icons > *:not(:first-child) {
+  margin-left: 20px;
+}
+
+.noti{
+  height: 40px;
+  width: 40px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.1);
+}
+.profile-icon{
+  background-color: #3498db;
+  height: 40px;
+  /* width: 40px; */
+  color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);;
+}
+
+.mode-toggle{
+  z-index: -99;
+}
+.notification, .profile {
+  cursor: pointer;
+}
+
+.notification-dropdown{
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  right: 20px;
+  top: 60px;
+  z-index: 9;
+}
+
+
+.logout-btn {
+  background-color: #e74c3c;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+/* Body */
+.body {
+  padding: 20px;
+  text-align: center;
+  color: #333;
+}
+
+/* Floating Action Button */
+.fab {
+  position: fixed;
+  bottom: 20px;
+  right: 25px;
+  width: 50px;
+  height: 50px;
+  background-color: #3498db;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: background 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+.fab:hover {
+  background-color: #2980b9;
+}
+
+.fab-icon {
+  display: inline-block;
+  transition: transform 0.3s ease-in-out;
+}
+
+.fab.active .fab-icon {
+  transform: rotate(45deg);
+}
+
+.popup-menu {
+  position: fixed;
+  bottom: 100px;
+  right: 50px;
+  width: 400px;
+  display: flex;
+  flex-direction: column-reverse;
+  padding-bottom: 30px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+/* Active state for popup */
+.popup-menu.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.alert {
+            position: relative;
+            padding: 15px 20px;
+            margin: 10px 0;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: color 0.4s ease;
+            display: flex;
+            align-items: center;
+            border: none;
+            font-size: medium;
+        }
+.alert::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 2%; /* Small portion on the left */
+            height: 100%;
+            transition: width 0.4s ease-in-out;
+        }
+.alert:hover::before {
+            width: 100%;
+        }
+.alert span {
+            position: relative;
+            z-index: 1;
+        }
+        
+.red { background: #ffebee; color: #b71c1c; }
+.blue { background: #e3f2fd; color: #0d47a1; }
+.purple { background: #f3e5f5; color: #6a1b9a; }
+        
+.red::before { background: #f44336; }
+.blue::before { background: #2196f3; }
+.purple::before { background: #9c27b0; }
+        
+.alert:hover { color: white; }
+
+body.dark-mode .red { background: #3b0002; color: #ff8a80; }
+body.dark-mode .blue { background: #001f3f; color: #82b1ff; }
+body.dark-mode .purple { background: #2a003a; color: #e1bee7; }
+        
+body.dark-mode .red::before { background: #d32f2f; }
+body.dark-mode .blue::before { background: #1976d2; }
+body.dark-mode .purple::before { background: #8e24aa; }
+
+.dialog {
+  height: 200px;
+  width: 400px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #ffffff/*#1e1e1e*/;
+  padding: 20px;
+  border-radius: 8px;
+  display: none;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /*rgba(255, 255, 255, 0.2)*/
+  text-align: center;
+ }
+ body.dark-mode .dialog{
+  background: #1e1e1e;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+ }
+.dialog h2 {
+    margin: 0 0 15px;
+}
+.dialog button {
+    background: #e8f1ff;
+    margin: 8px;
+    padding: 10px 20px;
+    border: 0.5px solid #0d47a1;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: medium;
+    color: #0d47a1;
+    transition: 0.3s ease;
+}
+body.dark-mode .dialog button{
+  background: #00000043;
+}
+.dialog button:hover{
+  background: #0d47a1;
+  color: #fff;
+}
+body.dark-mode .dialog button:hover{
+  background: #0d47a1;
+  color: #fff;
+}
+.dialog .close {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    color: black;
+    font-size: 18px;
+    cursor: pointer;
+    transition: none;
+}
+body.dark-mode .dialog .close{
+  background: transparent;
+  color: white;
+}
+.dialog .close:hover {
+    background: transparent;
+    color: red;
+}
+body.dark-mode .dialog .close:hover{
+  background: transparent;
+  color: red;
+}
+
+body.dark-mode {
+  background-color: #333;
+  color: #fff;
+}
+
+body.dark-mode .main-content {
+  background-color: #444;
+}
+
+body.dark-mode .header {
+  background-color: #222;
+  color: #fff;
+  box-shadow: 2px 2px 4px rgba(124, 124, 124, 0.733);
+}
+
+
+
+body.dark-mode .notification-dropdown{
+  background-color: #222;
+  color: #fff;
+  border-color: #444;
+}
+
+/* Responsive Design */
+/* Mobile View */
+@media (max-width: 768px) {
+  .logo{
+    padding-bottom: 25px;
+  }
+  .search-box{
+    display: none;
+  }
+
+  body.dark-mode .logo{
+    padding-bottom: 24px;
+  }
+  #logo-img{
+    width: 65%;
+    height: 65%;
+    transform: translateX(40px);
+  }
+  
+  .sidebar {
+    transform: translateX(-100%);
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 1000;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .sidebar.active {
+    transform: translateX(0);
+  }
+  .popup-menu{
+    right: 40px;
+    width: 80%;
+  }
+  .menu-icon {
+    display: block;
+    position: fixed;
+    top: 21px;
+    left: 20px;
+    z-index: 1001;
+    color: #000;
+    font-size: 24px;
+    cursor: pointer;
+  }
+  .dialog{
+    width: 80%;
+  }
+  body.dark-mode .menu-icon{
+    color: #fff;
+  }
+  .menu-item{
+    width: 80%;
+  }
+  /* .fab{
+    position: fixed;
+    left: 300px;
+  } */
+
+  .main-content {
+    margin-left: 0;
+  }
+}
+  </style>
+</head>
+<body>
+  <div class="dashboard">
+    <!-- Sidebar -->
+    <div class="menu-icon" id="menu-icon">&#9776;</div>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <ul class="menu">
+      <li class="logo"><img id="logo-img" src="https://i.ibb.co/cBT6cK6/sr-w.png"alt=""></li>
+      <li class="menu-item"><i class="fas fa-home"></i><span class="home">Home</span></li>
+    </ul>
+  </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Header -->
+      <div class="header">
+        <div class="search-box">
+          <img src="https://i.ibb.co/27D6gM9t/s.png" alt="">
+          <input type="text" placeholder="Type keywords to search">
+      </div>
+        <!-- <div class="search-container">
+            <input type="text" class="search-input" placeholder="Search...">
+            <button class="search-button">
+              <i class="fas fa-search"></i>
+            </button>
+          </div> -->
+        <div class="header-icons">
+          <div class="mode-toggle" id="mode-toggle">
+            <span class="toggle-icon">🌙</span>
+          </div>
+          <div class="notification" id="notification">
+            <span class="notification-icon"><img src="https://i.ibb.co/LfMz4GL/n.png" class="noti" alt="" height="20px" width="20px"></span>
+            <div class="notification-dropdown" id="notification-dropdown">
+              <p>No notification</p>
+            </div>
+          </div>
+          <div class="profile" id="profile" onclick="window.location.href='/login'">
+            <span class="profile-icon">Login</span>
+          </div>
+        </div>
+      </div>
+      <hr color="#ccc">
+
+      <!-- Body -->
+      <div class="body">
+        <p>No Data Here</p>
+      </div>
+
+      <!-- Floating Action Button -->
+      <div class="fab" id="fab">
+        <span class="fab-icon">+</span>
+      </div>
+      <div class="popup-menu" id="popup-menu">
+        <button class="alert red"><span>On Board Client</span></button>
+        <button class="alert blue"><span>On Board Partner / Member</span></button>
+        <button class="alert purple" onclick="openDialog(event)"><span>Submit Job Seeker</span></button>
+      </div>
+
+      <div class="dialog" id="dialogBox" onclick="event.stopPropagation()">
+        <button class="close" onclick="closeDialog()">✖</button>
+        <h2>Select an Option</h2>
+        <button onclick="alert('PH selected')">Candidate Submission-PH</button>
+        <button onclick="alert('CH selected')">Candidate Submission-CH</button>
+    </div>
+
+    </div>
+  </div>
+
+  <script>
+    // Toggle Sidebar for Mobile
+const menuIcon = document.getElementById('menu-icon');
+const sidebar = document.querySelector('.sidebar');
+
+menuIcon.addEventListener('click', () => {
+  sidebar.classList.toggle('active');
+  event.stopPropagation();
+});
+
+document.addEventListener('click', (event) => {
+  if (!sidebar.contains(event.target) && !menuIcon.contains(event.target)) {
+    sidebar.classList.remove('active');
+  }
+});
+
+// Dark/Light Mode Toggle
+const modeToggle = document.getElementById('mode-toggle');
+const body = document.body;
+const logoImg = document.getElementById("logo-img");
+
+modeToggle.addEventListener('click', () => {
+  body.classList.toggle('dark-mode');
+  const toggleIcon = modeToggle.querySelector('.toggle-icon');
+  toggleIcon.textContent = body.classList.contains('dark-mode') ? '☀️' : '🌙';
+  logoImg.src = logoImg.src.includes("sr_t.png") ? "sr_w.png" : "sr_t.png";
+});
+
+// Notification Dropdown
+const notification = document.getElementById('notification');
+const notificationDropdown = document.getElementById('notification-dropdown');
+
+notification.addEventListener('click', () => {
+  notificationDropdown.style.display = notificationDropdown.style.display === 'block' ? 'none' : 'block';
+});
+
+
+// Close dropdowns when clicking outside
+document.addEventListener('click', (event) => {
+  if (!notification.contains(event.target)) {
+    notificationDropdown.style.display = 'none';
+  }
+});
+
+const fab = document.getElementById("fab");
+const popupMenu = document.getElementById("popup-menu");
+
+fab.addEventListener("click", () => {
+  fab.classList.toggle("active");
+  popupMenu.classList.toggle("active");
+  document.getElementById("dialogBox").style.display = "none";
+});
+
+// Close popup when clicking outside
+document.addEventListener("click", (event) => {
+  if (!fab.contains(event.target) && !popupMenu.contains(event.target)) {
+    fab.classList.remove("active");
+    popupMenu.classList.remove("active");
+    document.getElementById("dialogBox").style.display = "none";
+  }
+});
+
+function openDialog(event) {
+            event.stopPropagation();
+            document.getElementById("dialogBox").style.display = "block";
+            fab.classList.remove("active");
+            popupMenu.classList.remove("active");
+        }
+        function closeDialog(event) {
+            document.getElementById("dialogBox").style.display = "none";
+        }
+  </script>
+</body>
+</html>

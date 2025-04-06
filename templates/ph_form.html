@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Candidate Submission Form</title>
+  <style>
+    /* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.form-container {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 600px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #555;
+}
+
+input[type="text"],
+input[type="tel"],
+input[type="email"],
+input[type="date"],
+input[type="datetime-local"],
+input[type="file"] {
+  width: 97%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+select{
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.radio-group {
+  display: flex;
+  gap: 15px;
+}
+
+.radio-group label {
+  font-weight: normal;
+}
+
+input[type="radio"]{
+    width: 30px;
+    transform: translateY(1px);
+}
+
+button {
+  margin-top: 10px;
+  width: 100%;
+  padding: 10px;
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #218838;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .form-container {
+    padding: 15px;
+  }
+
+  .radio-group {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  /* input[type="radio"]{
+    transform: translateY(17px);
+  } */
+
+  input{
+    width: 100%;
+  }
+}
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h1>Candidate Submission PH</h1>
+    <form id="candidateForm" action="/ph_form" method="POST"  enctype="multipart/form-data">
+      <!-- Referral Code -->
+      <div class="form-group">
+        <label for="referralCode">Referral Code</label>
+        <input type="text" id="referralCode" name="referralCode" required>
+      </div>
+
+      <!-- Vertical -->
+      <div class="form-group">
+        <label for="vertical">Vertical</label>
+        <select id="vertical" name="vertical" required>
+          <option value="">Select</option>
+          <option value="IT">IT</option>
+          <option value="Non-IT">Non-IT</option>
+        </select>
+      </div>
+
+      <!-- Client Name -->
+      <div class="form-group">
+        <label for="clientName">Client Name</label>
+        <input type="text" id="clientName" name="clientName" required>
+      </div>
+
+      <!-- Position/Designation -->
+      <div class="form-group">
+        <label for="position">Position/Designation</label>
+        <input type="text" id="position" name="position" required>
+      </div>
+
+      <!-- Candidate Name -->
+      <div class="form-group">
+        <label for="candidateName">Candidate Name</label>
+        <input type="text" id="candidateName" name="candidateName" required>
+      </div>
+
+      <!-- Phone No. -->
+      <div class="form-group">
+        <label for="phone">Phone No.</label>
+        <input type="tel" id="phone" name="phone" required>
+      </div>
+
+      <!-- Email ID -->
+      <div class="form-group">
+        <label for="email">Email ID</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+
+      <!-- Gender -->
+      <div class="form-group">
+        <label>Gender</label>
+        <div class="radio-group">
+          <label><input type="radio" name="gender" value="Male" required> Male</label>
+          <label><input type="radio" name="gender" value="Female"> Female</label>
+          <label><input type="radio" name="gender" value="Others"> Others</label>
+        </div>
+      </div>
+
+      <!-- Age -->
+      <div class="form-group">
+        <label for="age">Age</label>
+        <select id="age" name="age" required>
+          <option value="">Select</option>
+          <option value="<=25"><=25</option>
+          <option value="26-40">26-40</option>
+          <option value="40+">40+</option>
+        </select>
+      </div>
+
+      <!-- Qualification -->
+      <div class="form-group">
+        <label for="qualification">Qualification</label>
+        <select id="qualification" name="qualification" required>
+          <option value="">Select</option>
+          <option value="10+2(12th)">10+2(12th)</option>
+          <option value="Graduation">Graduation</option>
+          <option value="Post Graduation">Post Graduation</option>
+        </select>
+      </div>
+
+      <!-- Experience Level -->
+      <div class="form-group">
+        <label for="expLevel">Experience Level</label>
+        <select id="expLevel" name="expLevel" required>
+          <option value="">Select</option>
+          <option value="0-0.5">0-0.5</option>
+          <option value="0.5-1">0.5-1</option>
+          <option value="1-3">1-3</option>
+          <option value="3+">3+</option>
+        </select>
+      </div>
+
+      <!-- Relevant Experience -->
+      <div class="form-group">
+        <label for="relevantExp">Relevant Experience</label>
+        <select id="relevantExp" name="relevantExp" required>
+          <option value="">Select</option>
+          <option value="Freshers">Freshers</option>
+          <option value="Below 1 yr">Below 1 yr</option>
+          <option value="1-2 yrs">1-2 yrs</option>
+          <option value="2-3 yrs">2-3 yrs</option>
+          <option value="3+">3+</option>
+        </select>
+      </div>
+
+      <!-- Mandatory Skillset -->
+      <div class="form-group">
+        <label for="skillset">Mandatory Skillset</label>
+        <input type="text" id="skillset" name="skillset" required>
+      </div>
+
+      <!-- Current/Last CTC -->
+      <div class="form-group">
+        <label for="currentCTC">Current/Last CTC</label>
+        <input type="text" id="currentCTC" name="currentCTC" required>
+      </div>
+
+      <!-- Expected CTC -->
+      <div class="form-group">
+        <label for="expectedCTC">Expected CTC</label>
+        <input type="text" id="expectedCTC" name="expectedCTC" required>
+      </div>
+
+      <!-- Resume Upload -->
+      <div class="form-group">
+        <label for="resume">Resume Upload</label>
+        <input type="file" id="resume" name="resume" required>
+      </div>
+
+      <!-- Level 1 Screening -->
+      <div class="form-group">
+        <label>Level 1 Screening</label>
+        <div class="radio-group">
+          <label><input type="radio" name="screening" value="Done" required> Done</label>
+          <label><input type="radio" name="screening" value="Not Done"> Not Done</label>
+        </div>
+      </div>
+
+      <!-- JD Shared to Candidate -->
+      <div class="form-group">
+        <label>JD Shared to Candidate</label>
+        <div class="radio-group">
+          <label><input type="radio" name="jdShared" value="Shared" required> Shared</label>
+          <label><input type="radio" name="jdShared" value="Not Shared"> Not Shared</label>
+        </div>
+      </div>
+
+      <!-- Interview Availability -->
+      <div class="form-group">
+        <label for="interviewDate">Interview Availability</label>
+        <input type="datetime-local" id="interviewDate" name="interviewDate" required>
+      </div>
+
+      <!-- Submission Date -->
+      <div class="form-group">
+        <label for="submissionDate">Submission Date</label>
+        <input type="datetime-local" id="submissionDate" name="submissionDate" required readonly>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="form-group">
+        <button type="submit">Submit</button>
+      </div>
+    </form>
+  </div>
+  <script>
+     document.addEventListener("DOMContentLoaded", function () {
+    let submissionDateInput = document.getElementById("submissionDate");
+
+    function getISTDateTime() {
+      let now = new Date();
+
+      // Convert to IST using Indian timezone
+      let istTime = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Kolkata" }));
+
+      let year = istTime.getFullYear();
+      let month = String(istTime.getMonth() + 1).padStart(2, '0');
+      let day = String(istTime.getDate()).padStart(2, '0');
+      let hours = String(istTime.getHours()).padStart(2, '0');
+      let minutes = String(istTime.getMinutes()).padStart(2, '0');
+
+      return `${year}-${month}-${day}T${hours}:${minutes}`; // Format for datetime-local input
+    }
+
+    function setISTDateTime() {
+      submissionDateInput.value = getISTDateTime();
+    }
+
+    setISTDateTime(); // Set IST date-time on page load
+
+    document.getElementById("candidateForm").addEventListener("submit", function () {
+      setISTDateTime(); // Ensure updated IST time before submission
+    });
+  });
+  </script>
+  <!-- <script>
+    document.getElementById('candidateForm').addEventListener('submit', function (e) {
+  e.preventDefault();
+  let isValid = true;
+
+  // Check all required fields
+  const requiredFields = document.querySelectorAll('input[required], select[required]');
+  requiredFields.forEach(field => {
+    if (!field.value) {
+      isValid = false;
+      field.style.borderColor = 'red';
+    } else {
+      field.style.borderColor = '#ccc';
+    }
+  });
+
+  // Validate email format
+  const emailField = document.getElementById('email');
+  if (emailField.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailField.value)) {
+    isValid = false;
+    emailField.style.borderColor = 'red';
+  }
+
+  // Validate phone number format
+  const phoneField = document.getElementById('phone');
+  if (phoneField.value && !/^\d{10}$/.test(phoneField.value)) {
+    isValid = false;
+    phoneField.style.borderColor = 'red';
+  }
+
+  if (isValid) {
+    alert('Form submitted successfully!');
+    // You can add AJAX submission logic here
+  } else {
+    alert('Please fill all required fields correctly.');
+  }
+});
+  </script> -->
+</body>
+</html>
